@@ -72,7 +72,7 @@ function points(){
       var marker = L.marker(coordinates);
       marker.setOpacity(0.7);
       
-      marker.bindPopup(beacon.properties.name + '<br/> ' + "<b>Status: " + beacon.properties.status + "</b>").openPopup();
+      marker.bindPopup('<strong>' + beacon.properties.name + '</strong><br/> ' + "<em>Status: " + beacon.properties.status + "</em>").openPopup();
 
 
       return marker;
@@ -96,8 +96,7 @@ function points(){
       var marker = L.marker(coordinates);
       marker.setOpacity(0.7);
       
-      marker.bindPopup(beacon.properties.name + '<br/> ' + "<b>Status: " + beacon.properties.status + "</b>").openPopup();
-
+      marker.bindPopup('<strong>' + beacon.properties.name + '</strong><br/> ' + "<em>Status: " + beacon.properties.status + "</em>").openPopup();
 
       return marker;
 	}));
@@ -124,7 +123,7 @@ function points(){
       var marker = L.marker(coordinates);
       marker.setOpacity(0.7);
       
-      marker.bindPopup(beacon.properties.name + '<br/> ' + "<b>Status: " + beacon.properties.status + "</b>").openPopup();
+      marker.bindPopup('<strong>' + beacon.properties.name + '</strong><br/> ' + "<em>Status: " + beacon.properties.status + "</em>").openPopup();
 
       return marker;
 	}));
