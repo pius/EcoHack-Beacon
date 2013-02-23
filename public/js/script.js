@@ -31,10 +31,10 @@ function dealwithData(oa){
 
   console.log("data.json is " + data.json);
     points();
-    veronoi();
-    delaunay();
-    clusters();
-    quadtree();
+    //veronoi();
+    //delaunay();
+    //clusters();
+    //quadtree();
 }
 function points(){
     layers.points = L.layerGroup(data.json.map(function(beacon){
@@ -45,7 +45,7 @@ function points(){
       var marker = L.marker(coordinates);
       marker.setOpacity(0.7);
       
-      marker.bindPopup(beacon.properties.name + ' <br> Current reading: 12.3.').openPopup();
+      marker.bindPopup(beacon.properties.name + '<br/> ' + beacon.properties.status).openPopup();
 
       return marker;
 
@@ -54,7 +54,105 @@ function points(){
                             //{radius:15,stroke:false,fillOpacity:1,clickable:false,
                               //color:fills[Math.floor((Math.random()*9))]}).bindPopup('A pretty CSS3 popup. <br> Easily customizable.');
 	}));
-	lc.addOverlay(layers.points,"Beacons");
+
+
+  var activeBeacons = _.select(data.json, (function(beacon){
+    console.log(beacon.properties);    
+    return beacon.properties.status == 'active'
+  }));
+
+  console.log("active ones are " + activeBeacons);
+
+
+  layers.activeBeacons = L.layerGroup(activeBeacons.map(function(beacon){
+      var coordinates = L.latLng([beacon.geometry.coordinates[1], beacon.geometry.coordinates[0]]);
+
+      var color = "green";
+
+      var marker = L.marker(coordinates);
+      marker.setOpacity(0.7);
+      
+      marker.bindPopup(beacon.properties.name + '<br/> ' + "<b>Status: " + beacon.properties.status + "</b>").openPopup();
+
+
+      return marker;
+	}));
+
+
+
+    var pendingBeacons = _.select(data.json, (function(beacon){
+        console.log(beacon.properties);    
+        return beacon.properties.status == 'pending'
+       }));
+
+  console.log("active ones are " + pendingBeacons);
+
+
+  layers.pendingBeacons = L.layerGroup(pendingBeacons.map(function(beacon){
+      var coordinates = L.latLng([beacon.geometry.coordinates[1], beacon.geometry.coordinates[0]]);
+
+      var color = "green";
+
+      var marker = L.marker(coordinates);
+      marker.setOpacity(0.7);
+      
+      marker.bindPopup(beacon.properties.name + '<br/> ' + "<b>Status: " + beacon.properties.status + "</b>").openPopup();
+
+
+      return marker;
+	}));
+
+
+
+
+
+
+
+      var shadyBeacons = _.select(data.json, (function(beacon){
+        console.log(beacon.properties);    
+        return beacon.properties.status == 'issues'
+       }));
+
+  console.log("shady ones are " + shadyBeacons);
+
+
+  layers.shadyBeacons = L.layerGroup(shadyBeacons.map(function(beacon){
+      var coordinates = L.latLng([beacon.geometry.coordinates[1], beacon.geometry.coordinates[0]]);
+
+      var color = "green";
+
+      var marker = L.marker(coordinates);
+      marker.setOpacity(0.7);
+      
+      marker.bindPopup(beacon.properties.name + '<br/> ' + "<b>Status: " + beacon.properties.status + "</b>").openPopup();
+
+      return marker;
+	}));
+
+
+
+
+
+
+
+
+
+
+
+
+
+	//lc.addOverlay(layers.points, "All Beacons");
+  lc.addOverlay(layers.activeBeacons, "Active Beacons");
+  lc.addOverlay(layers.pendingBeacons, "Pending Beacons");
+  lc.addOverlay(layers.shadyBeacons, "Beacons with Issues");
+  
+  
+
+
+
+
+
+
   //layers.points.map(function(beacon){
     //beacon.openPopup();
   //});
