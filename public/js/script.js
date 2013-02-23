@@ -140,12 +140,14 @@ function points(){
 
 
 
+
 	//lc.addOverlay(layers.points, "All Beacons");
   lc.addOverlay(layers.activeBeacons, "Active Beacons");
   lc.addOverlay(layers.pendingBeacons, "Pending Beacons");
   lc.addOverlay(layers.shadyBeacons, "Beacons with Issues");
   
   
+  m.addLayer(layers.activeBeacons);
 
 
 
